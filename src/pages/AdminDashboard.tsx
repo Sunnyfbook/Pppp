@@ -21,6 +21,7 @@ import AdsManagement from '@/components/admin/AdsManagement';
 import Analytics from '@/components/admin/Analytics';
 import AdminUsers from '@/components/admin/AdminUsers';
 import VideosManagement from '@/components/admin/VideosManagement';
+import ApiSettings from '@/components/admin/ApiSettings';
 
 const AdminDashboard = () => {
   const [user, setUser] = useState<any>(null);
@@ -138,7 +139,7 @@ const AdminDashboard = () => {
       {/* Main Content */}
       <main className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
         <Tabs defaultValue="videos" className="space-y-4 sm:space-y-6">
-          <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 h-auto p-1">
+          <TabsList className="grid w-full grid-cols-3 sm:grid-cols-6 h-auto p-1">
             <TabsTrigger value="videos" className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm">
               <Video size={14} className="sm:w-4 sm:h-4" />
               <span className="hidden xs:inline">Videos</span>
@@ -146,6 +147,10 @@ const AdminDashboard = () => {
             <TabsTrigger value="settings" className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm">
               <Settings size={14} className="sm:w-4 sm:h-4" />
               <span className="hidden xs:inline">Settings</span>
+            </TabsTrigger>
+            <TabsTrigger value="api" className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm">
+              <Globe size={14} className="sm:w-4 sm:h-4" />
+              <span className="hidden xs:inline">API</span>
             </TabsTrigger>
             <TabsTrigger value="ads" className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm">
               <FileImage size={14} className="sm:w-4 sm:h-4" />
@@ -167,6 +172,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="settings">
             <WebsiteSettings />
+          </TabsContent>
+
+          <TabsContent value="api">
+            <ApiSettings />
           </TabsContent>
 
           <TabsContent value="ads">

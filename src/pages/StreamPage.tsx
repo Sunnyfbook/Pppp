@@ -9,10 +9,9 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import AdDisplay from '@/components/AdDisplay';
 import { validateFileId } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
+import { useApiSettings } from '@/hooks/useApiSettings';
 
 import { VideoReactionsProvider } from '@/context/VideoReactionsContext';
-
-const API_BASE_URL = 'https://camgrabber-mb2q.onrender.com';
 
 const StreamPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -20,6 +19,9 @@ const StreamPage: React.FC = () => {
   const [videoTitle, setVideoTitle] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [siteSettings, setSiteSettings] = useState<any>({});
+  
+  // Use dynamic API base URL from database
+  const { apiBaseUrl, loading: apiLoading } = useApiSettings();
 
   useEffect(() => {
     const loadSettings = async () => {
@@ -46,10 +48,10 @@ const StreamPage: React.FC = () => {
 
   useEffect(() => {
     const fetchVideoInfo = async () => {
-      if (!fileId || !validateFileId(fileId)) return;
+      if (!fileId || !validateFileId(fileId) || apiLoading) return;
       
       try {
-        const response = await fetch(`${API_BASE_URL}/api/file/${fileId}`);
+        const response = await fetch(`${apiBaseUrl}/api/file/${fileId}`);
         if (response.ok) {
           const data = await response.json();
           const title = data.file_name || `Video ${fileId}`;
@@ -75,7 +77,7 @@ const StreamPage: React.FC = () => {
     return () => {
       document.title = siteSettings.site_title || 'StreamFlix Pro';
     };
-  }, [fileId, siteSettings.site_title]);
+  }, [fileId, siteSettings.site_title, apiBaseUrl, apiLoading]);
 
   if (!fileId) {
     return (
@@ -154,7 +156,7 @@ const StreamPage: React.FC = () => {
             <AdDisplay placement="stream-player-top" />
             
             <ErrorBoundary>
-              <VideoPlayer fileId={fileId} apiBaseUrl={API_BASE_URL} />
+              <VideoPlayer fileId={fileId} apiBaseUrl={apiBaseUrl} />
             </ErrorBoundary>
             
             <div className="max-w-6xl mx-auto space-y-4">
@@ -171,7 +173,7 @@ const StreamPage: React.FC = () => {
                   <Button 
                     onClick={() => {
                       const link = document.createElement('a');
-                      link.href = `${API_BASE_URL}/dl/${fileId}`;
+                      link.href = `${apiBaseUrl}/dl/${fileId}`;
                       link.download = `video_${fileId}`;
                       document.body.appendChild(link);
                       link.click();
