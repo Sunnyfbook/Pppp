@@ -9,7 +9,7 @@
     "build:dev": "vite build --mode development",
     "build:cf": "vite build",
     "deploy": "npm run build:cf && wrangler pages deploy dist",
-    "deploy:worker": "npm run build:cf && wrangler deploy",
+    "deploy:worker": "npm run build:cf && wrangler pages deploy dist",
     "lint": "eslint .",
     "preview": "vite preview",
     "cf:dev": "wrangler pages dev dist"
