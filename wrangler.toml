@@ -1,0 +1,17 @@
+name = "mmsbee-app"
+compatibility_date = "2024-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+# For Cloudflare Pages deployment
+pages_build_output_dir = "dist"
+
+# Environment variables
+[vars]
+VITE_SUPABASE_URL = "https://rwfikcpsnpacbtaotaht.supabase.co"
+VITE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3ZmlrY3BzbnBhY2J0YW90YWh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0OTcyNTMsImV4cCI6MjA3MzA3MzI1M30.LhkedU1lrK_2OIpv1XkuG-iduUjEuCXqV2qZhQ96-YA"
+
+# Build configuration
+[build]
+command = "npm run build"
+cwd = "."
+watch_dir = "src"
