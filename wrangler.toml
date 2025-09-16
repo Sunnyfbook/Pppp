@@ -2,9 +2,8 @@ name = "mmsbee-app"
 compatibility_date = "2024-01-15"
 compatibility_flags = ["nodejs_compat"]
 
-# Assets configuration for static site deployment
-[assets]
-directory = "./dist"
+# Pages configuration
+pages_build_output_dir = "dist"
 
 # Environment variables
 [vars]
